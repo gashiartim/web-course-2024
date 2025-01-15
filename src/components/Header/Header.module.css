@@ -1,0 +1,16 @@
+.header {
+  padding: 1rem;
+  background-color: #f0f0f0;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__list {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
