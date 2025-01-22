@@ -1,5 +1,5 @@
 import { Header } from "../components/Header/Header";
 
 export const AboutPage = () => {
-  return <div>AboutPage</div>;
+  return <div>AboutPage aktiv</div>;
 };
