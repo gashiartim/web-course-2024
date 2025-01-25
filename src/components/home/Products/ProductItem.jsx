@@ -14,8 +14,13 @@ export const ProductItem = (props) => {
           <p>{props.description}</p>
         </div>
         <div className={styles.product__price}> {props.price}</div>
+        <div className={styles.product__actions}>
+          <button onClick={() => props.onEditProduct(props.title)}>Edit</button>
+          <button onClick={() => props.onDeleteProduct(props.title)}>
+            Delete
+          </button>
+        </div>
       </div>
-      <button onClick={() => props.onDeleteProduct(props.title)}>Delete</button>
     </div>
   );
 };

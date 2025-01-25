@@ -38,3 +38,10 @@
   font-size: 1.2rem;
   font-weight: 600;
 }
+
+.product__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  justify-content: flex-end;
+}

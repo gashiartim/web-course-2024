@@ -9,6 +9,7 @@ import { AddProduct } from "../components/home/Products/AddProduct";
 
 const PRODUCTS = [
   {
+    id: 1,
     title: "Produkti 1",
     price: "123 EUR",
     description:
@@ -16,6 +17,7 @@ const PRODUCTS = [
     img: productOneImg,
   },
   {
+    id: 2,
     title: "Produkti 2",
     price: "123 EUR",
     description:
@@ -23,6 +25,7 @@ const PRODUCTS = [
     img: productTwoImg,
   },
   {
+    id: 3,
     title: "Produkti 3",
     price: "123 EUR",
     description:
@@ -30,6 +33,7 @@ const PRODUCTS = [
     img: productThreeImg,
   },
   {
+    id: 4,
     title: "Produkti 4",
     price: "123 EUR",
     description:
@@ -41,27 +45,87 @@ const PRODUCTS = [
 export const HomePage = () => {
   const [products, setProducts] = useState(PRODUCTS);
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [product, setProduct] = useState({
+    title: "",
+    price: "",
+    description: "",
+  });
+
   const handleDeleteProduct = (title) => {
     setProducts(products.filter((product) => product.title !== title));
   };
 
-  const handleAddProduct = (title, price, description) => {
+  const handleEditProduct = (title) => {
+    setIsEditing(true);
+    const product = products.find((product) => product.title === title);
+
+    if (!product) {
+      window.alert("Product not found");
+      return;
+    }
+
+    setProduct(product);
+  };
+
+  const handleAddProduct = () => {
+    if (isEditing) {
+      const newProducts = products.map((item) => {
+        if (item.id === product.id) {
+          return { ...item, ...product };
+        }
+        return item;
+      });
+
+      setProducts(newProducts);
+      setIsEditing(false);
+      setProduct({
+        title: "",
+        price: "",
+        description: "",
+      });
+
+      return;
+    }
+
     setProducts([
       ...products,
       {
-        title: title,
-        price: price,
-        description: description,
+        id: products.length + 1,
+        title: product.title,
+        price: product.price,
+        description: product.description,
         img: productOneImg,
       },
     ]);
+
+    setProduct({
+      title: "",
+      price: "",
+      description: "",
+    });
+  };
+
+  const handleOnChange = (event) => {
+    setProduct({ ...product, [event.target.name]: event.target.value });
   };
 
   return (
     <div>
       <HeroBanner />
-      <AddProduct onAddProduct={handleAddProduct} />
-      <Products data={products} onDeleteProduct={handleDeleteProduct} />
+      <AddProduct
+        onAddProduct={handleAddProduct}
+        title={product.title}
+        price={product.price}
+        description={product.description}
+        onChange={handleOnChange}
+        isEditing={isEditing}
+      />
+      <Products
+        data={products}
+        onDeleteProduct={handleDeleteProduct}
+        onEditProduct={handleEditProduct}
+      />
     </div>
   );
 };
