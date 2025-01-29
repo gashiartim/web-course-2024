@@ -126,6 +126,9 @@ export const HomePage = () => {
         onDeleteProduct={handleDeleteProduct}
         onEditProduct={handleEditProduct}
       />
+      <div className="bg-red-500 mt-6 pt-10 block text-center py-10">
+        babloki
+      </div>
     </div>
   );
 };
